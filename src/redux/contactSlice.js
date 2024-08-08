@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { addContact, deleteContact, fetchContacts } from "./contactsOps";
 
 const initialState = {
@@ -18,32 +18,46 @@ const slice = createSlice({
         state.contacts.items = action.payload;
         state.contacts.loading = false;
       })
-      .addCase(fetchContacts.pending, (state) => {
-        state.contacts.loading = true;
-      })
-      .addCase(fetchContacts.rejected, (state) => {
-        state.contacts.error = true;
-      })
       .addCase(addContact.fulfilled, (state, action) => {
         state.contacts.items.push(action.payload);
-      })
-      .addCase(addContact.pending, (state) => {
-        state.contacts.loading = true;
-      })
-      .addCase(addContact.rejected, (state) => {
-        state.contacts.error = true;
       })
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.contacts.items = state.contacts.items.filter(
           (contact) => contact.id !== action.payload
         );
       })
-      .addCase(deleteContact.pending, (state) => {
-        state.contacts.loading = true;
-      })
-      .addCase(deleteContact.rejected, (state) => {
-        state.contacts.error = true;
-      });
+      .addMatcher(
+        isAnyOf(
+          fetchContacts.pending,
+          addContact.pending,
+          deleteContact.pending
+        ),
+        (state) => {
+          state.contacts.loading = true;
+          state.contacts.error = false;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          fetchContacts.rejected,
+          addContact.rejected,
+          deleteContact.rejected
+        ),
+        (state) => {
+          state.contacts.loading = false;
+          state.contacts.error = true;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          fetchContacts.fulfilled,
+          addContact.fulfilled,
+          deleteContact.fulfilled
+        ),
+        (state) => {
+          state.contacts.loading = false;
+        }
+      );
   },
 });
 
