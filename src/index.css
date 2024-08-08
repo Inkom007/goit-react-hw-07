@@ -3,6 +3,7 @@
 body {
   font-family: sans-serif;
   line-height: 1.5;
+  background-color: rgb(246, 240, 232);
 }
 
 h1,
@@ -34,8 +35,9 @@ ul {
 }
 
 h1 {
-  margin-left: 100px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  color: rgba(21, 137, 75, 0.792);
+  margin-left: 80px;
   margin-top: 30px;
-  color: rgb(32, 32, 82);
-  font-family: "Courier New", Courier, monospace;
+  font-size: 60px;
 }

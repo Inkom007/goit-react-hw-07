@@ -11,13 +11,13 @@ const Contact = ({ name, number, id }) => {
       <div className={s.userWrapper}>
         <p className={s.text}>
           <span className={s.span}>
-            <FaUserAlt color="rgb(51, 51, 105)" />
+            <FaUserAlt color="rgba(21, 139, 76, 0.792)" />
           </span>
           {name}
         </p>
         <p className={s.text}>
           <span className={s.span}>
-            <FaPhone color="rgb(51, 51, 105)" />
+            <FaPhone color="rgba(21, 139, 76, 0.792)" />
           </span>
           {number}
         </p>
